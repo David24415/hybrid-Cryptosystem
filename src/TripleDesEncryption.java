@@ -37,9 +37,9 @@ public class TripleDesEncryption {
 		
 		//do the encryption and return as an array of bytes
 		myCipher.init(Cipher.ENCRYPT_MODE, secretKey);
-		theEncryptedElGamalEncryptedtxt = myCipher.doFinal(yourSecretKeyInBytes);
+		theEncryptedElGamalEncryptedtxt = myCipher.doFinal(theOriginalElGamalEncryptedtxt.getBytes());
 		
-		//return the secret key, so the decrypton can be done afterwards
+		//return the secret key, so the decryption can be done afterwards
 		return secretKey;
 
 
