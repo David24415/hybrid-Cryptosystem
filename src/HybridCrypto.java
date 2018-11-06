@@ -24,6 +24,8 @@ public class HybridCrypto{
 		int yourKeyLength;
 		String yourPlainText;
 		String OriginalText;
+		String yourSecretKey;
+		
 		Scanner myIn = new Scanner(System.in);
 		// use this to store the cipher text created from the encryption
 		byte [] yourCipherText;
@@ -31,12 +33,15 @@ public class HybridCrypto{
 
 		// perform ElGamal Encryption, followed by 3DES encryption, then 
 		// 3DES decryption followed by ElGamal decryption
-		// create encryption object
+		// create encryption objects
 		ElGamalEncryption myEncryption = new ElGamalEncryption() ;
+		TripleDesEncryption myTripleDesEncryption = new TripleDesEncryption();
 
-		// create decryption object
+		// create decryption objects
 		ElGamalDecryption myDecryption = new ElGamalDecryption();
+		TripleDesDecryption myTripleDesDecryption = new TripleDesDecryption();
 
+		
 		// get the key size from user
 		do {
 
@@ -66,6 +71,18 @@ public class HybridCrypto{
 		System.out.println("the resulting cipher text is:");
 		System.out.println(new String(yourCipherText));
 
+		
+		
+		myTripleDesEncryption.setTheOriginalElgamalEncryptedtxt(yourCipherText);
+		
+		System.out.println("please enter your secret key");
+		yourSecretKey = myIn.next();
+		myTripleDesEncryption.setTheSecretKey(yourSecretKey);
+		myTripleDesEncryption.encryptTheElGamalEncryptedtxt();
+
+		//continue here comment for David
+		//key must be 128 bits for 3DES
+		
 		//do decryption and output plain text here 
 		// set the the private Key
 		myDecryption.setThePrivateKey(yourPrivateKey);

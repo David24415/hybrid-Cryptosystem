@@ -13,8 +13,8 @@ import javax.crypto.spec.SecretKeySpec;
 public class TripleDesEncryption {
 	private
 	//member variables
-	String theOriginalElGamalEncryptedtxt,
-		   yourSecretKey;
+	byte[] theOriginalElGamalEncryptedtxt;
+	String yourSecretKey;
 	
 	byte[] theEncryptedElGamalEncryptedtxt;
 		   
@@ -37,7 +37,7 @@ public class TripleDesEncryption {
 		
 		//do the encryption and return as an array of bytes
 		myCipher.init(Cipher.ENCRYPT_MODE, secretKey);
-		theEncryptedElGamalEncryptedtxt = myCipher.doFinal(theOriginalElGamalEncryptedtxt.getBytes());
+		theEncryptedElGamalEncryptedtxt = myCipher.doFinal(theOriginalElGamalEncryptedtxt);
 		
 		//return the secret key, so the decryption can be done afterwards
 		return secretKey;
@@ -48,7 +48,7 @@ public class TripleDesEncryption {
 	
 	
 	//getters and setters
-	void setTheOriginalElgamalEncryptedtxt(String aOriginalElGamalEncryptedtxt) {
+	void setTheOriginalElgamalEncryptedtxt(byte [] aOriginalElGamalEncryptedtxt) {
 		theOriginalElGamalEncryptedtxt = aOriginalElGamalEncryptedtxt;
 	}
 	
