@@ -28,17 +28,17 @@ public class HybridCrypto{
 		
 		Scanner myIn = new Scanner(System.in);
 		// use this to store the cipher text created from the encryption
-		byte [] yourCipherText;
+		byte [] yourElGamalCipherText;
 		Key yourPrivateKey;
 
 		// perform ElGamal Encryption, followed by 3DES encryption, then 
 		// 3DES decryption followed by ElGamal decryption
 		// create encryption objects
-		ElGamalEncryption myEncryption = new ElGamalEncryption() ;
+		ElGamalEncryption myElGamalEncryption = new ElGamalEncryption() ;
 		TripleDesEncryption myTripleDesEncryption = new TripleDesEncryption();
 
 		// create decryption objects
-		ElGamalDecryption myDecryption = new ElGamalDecryption();
+		ElGamalDecryption myElGamalDecryption = new ElGamalDecryption();
 		TripleDesDecryption myTripleDesDecryption = new TripleDesDecryption();
 
 		
@@ -58,40 +58,47 @@ public class HybridCrypto{
 		yourPlainText = myIn.nextLine();
 
 		//set the plaintext and the key length
-		myEncryption.setThePlainText(yourPlainText);
-		myEncryption.setTheKeyLength(yourKeyLength);
+		myElGamalEncryption.setThePlainText(yourPlainText);
+		myElGamalEncryption.setTheKeyLength(yourKeyLength);
 
 		//perform the encryption
 		//returns the private key needed to do the decryption
-		yourPrivateKey = myEncryption.encryptThePlainText();
+		yourPrivateKey = myElGamalEncryption.encryptThePlainText();
 
 		//the cipher text
-		yourCipherText = myEncryption.getTheCipherText();
+		yourElGamalCipherText = myElGamalEncryption.getTheCipherText();
 
-		System.out.println("the resulting cipher text is:");
-		System.out.println(new String(yourCipherText));
+		System.out.println("the resulting El Gamal cipher text is:");
+		System.out.println(new String(yourElGamalCipherText));
 
 		
 		
-		myTripleDesEncryption.setTheOriginalElgamalEncryptedtxt(yourCipherText);
+		myTripleDesEncryption.setTheOriginalElgamalEncryptedtxt(yourElGamalCipherText);
 		
-		System.out.println("please enter your secret key");
-		yourSecretKey = myIn.next();
+		//accept only a secret key that is 128 bits | 16 characters long
+		do
+		{
+			System.out.println("please enter your secret key (it must be 16 characters long");
+			yourSecretKey = myIn.next();
+			
+		}while(yourSecretKey.length()!=16);
+		
+	
 		myTripleDesEncryption.setTheSecretKey(yourSecretKey);
 		myTripleDesEncryption.encryptTheElGamalEncryptedtxt();
 
-		//continue here comment for David
-		//key must be 128 bits for 3DES
+		System.out.println("the 3DES and ElGamal ciphertext is " + 
+				new String(myTripleDesEncryption.theEncryptedElGamalEncryptedtxt));
 		
 		//do decryption and output plain text here 
 		// set the the private Key
-		myDecryption.setThePrivateKey(yourPrivateKey);
+		myElGamalDecryption.setThePrivateKey(yourPrivateKey);
 		
 		//set the cipher text
-		myDecryption.setCipherText(yourCipherText);
+		myElGamalDecryption.setCipherText(yourElGamalCipherText);
 		
 		//get decrypted text
-		OriginalText = myDecryption.decryptThePlainText();
+		OriginalText = myElGamalDecryption.decryptThePlainText();
 		System.out.println("the Original plain text is:");
 		System.out.println(OriginalText);
 		myIn.close();
