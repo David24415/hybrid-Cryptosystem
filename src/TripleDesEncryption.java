@@ -16,7 +16,7 @@ public class TripleDesEncryption {
 	byte[] theOriginalElGamalEncryptedtxt;
 	String yourSecretKey;
 	
-	byte[] theEncryptedElGamalEncryptedtxt;
+	byte[] theEncryptedElGamal3DesEncryptedtxt;
 		   
 
 	public
@@ -27,7 +27,7 @@ public class TripleDesEncryption {
 				 * we specify padding to ensure that we have the correct length of plaintext, 
 				 * instead of checking for it during the time of user input. That way we fill each set of length 8 blocks.
 				 */
-		Cipher myCipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
+		Cipher myCipher = Cipher.getInstance("DESede");
 		
 		//convert the secret key string into Bytes
 		byte[] yourSecretKeyInBytes = yourSecretKey.getBytes();
@@ -37,7 +37,7 @@ public class TripleDesEncryption {
 		
 		//do the encryption and return as an array of bytes
 		myCipher.init(Cipher.ENCRYPT_MODE, secretKey);
-		theEncryptedElGamalEncryptedtxt = myCipher.doFinal(theOriginalElGamalEncryptedtxt);
+		theEncryptedElGamal3DesEncryptedtxt = myCipher.doFinal(theOriginalElGamalEncryptedtxt);
 		
 		//return the secret key, so the decryption can be done afterwards
 		return secretKey;
@@ -56,9 +56,9 @@ public class TripleDesEncryption {
 		yourSecretKey = aSecretKey;
 	}
 	
-	byte [] getTheEncryptedElGamalEncryptedtxt() {
+	byte [] getTheEncryptedElGamal3DesEncryptedtxt() {
 		
-		return theEncryptedElGamalEncryptedtxt;
+		return theEncryptedElGamal3DesEncryptedtxt;
 	}
 
 }

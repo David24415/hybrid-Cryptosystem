@@ -37,7 +37,8 @@ public class HybridCrypto{
 		// use this to store the cipher text created from the encryption
 		byte [] yourElGamalCipherText;
 		Key yourElGamalPrivateKey;
-		SecretKey yourWrappedElGamalSecreyKey;
+		SecretKey yourWrapped3DesSecretKey;
+		byte [] yourElGamal3DesEncryptedText;
 
 		// perform ElGamal Encryption, followed by 3DES encryption, then 
 		// 3DES decryption followed by ElGamal decryption
@@ -93,12 +94,18 @@ public class HybridCrypto{
 		
 	
 		myTripleDesEncryption.setTheSecretKey(yourSecretTripDesKey);
-		yourWrappedElGamalSecreyKey = myTripleDesEncryption.encryptTheElGamalEncryptedtxt();
-
+		yourWrapped3DesSecretKey = myTripleDesEncryption.encryptTheElGamalEncryptedtxt();
+		
+		yourElGamal3DesEncryptedText = myTripleDesEncryption.getTheEncryptedElGamal3DesEncryptedtxt();
+		
 		System.out.println("the 3DES and ElGamal ciphertext is " + 
-				new String(myTripleDesEncryption.theEncryptedElGamalEncryptedtxt));
+				new String(yourElGamal3DesEncryptedText));
 		
-		
+		myTripleDesDecryption.setTheSecretKey(yourWrapped3DesSecretKey);
+		myTripleDesDecryption.setTheElGamal3DesEncryptedText(yourElGamal3DesEncryptedText);
+		myTripleDesDecryption.decryptTheElGamal3DesEncryptedText();
+		System.out.println("the El Gamal ciphertext is " + 
+				new String (myTripleDesDecryption.getTheOriginalElGamalEncryptedText()));
 		
 		
 		
