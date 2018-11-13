@@ -27,21 +27,18 @@ public class HybridCrypto{
 											NoSuchProviderException 
 	{
 		// TODO Auto-generated method stub
-
+		Scanner myIn = new Scanner(System.in);
+		
 		int yourKeyLength;
 		String yourPlainText;
 		String OriginalText;
 		String yourSecretTripDesKey;
-		
-		Scanner myIn = new Scanner(System.in);
 		// use this to store the cipher text created from the encryption
 		byte [] yourElGamalCipherText;
+		byte [] yourElGamal3DesEncryptedText;
 		Key yourElGamalPrivateKey;
 		SecretKey yourWrapped3DesSecretKey;
-		byte [] yourElGamal3DesEncryptedText;
-
-		// perform ElGamal Encryption, followed by 3DES encryption, then 
-		// 3DES decryption followed by ElGamal decryption
+		
 		// create encryption objects
 		ElGamalEncryption myElGamalEncryption = new ElGamalEncryption() ;
 		TripleDesEncryption myTripleDesEncryption = new TripleDesEncryption();
