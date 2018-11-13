@@ -116,7 +116,7 @@ public class HybridCrypto{
 		myElGamalDecryption.setThePrivateKey(yourElGamalPrivateKey);
 		
 		//set the cipher text
-		myElGamalDecryption.setCipherText(yourElGamalCipherText);
+		myElGamalDecryption.setCipherText(myTripleDesDecryption.getTheOriginalElGamalEncryptedText());
 		
 		//get decrypted text
 		OriginalText = myElGamalDecryption.decryptThePlainText();

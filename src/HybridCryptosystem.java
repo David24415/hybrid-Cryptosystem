@@ -40,6 +40,7 @@ public class HybridCryptosystem {
 	String yourPlainText;
 	String Original3DesText;
 	String yourSecretTripDesKey;
+	String OriginalText;
 	// use this to store the cipher text created from the encryption
 	byte [] yourElGamalCipherText;
 	byte [] yourElGamal3DesEncryptedText;
@@ -112,6 +113,7 @@ public class HybridCryptosystem {
 		btnDecrypt.setEnabled(false);
 		btnDecrypt.setBounds(579, 342, 115, 29);
 		frmHybridCryptosystem.getContentPane().add(btnDecrypt);
+		btnDecrypt.addActionListener(new DecryptBtnListener());
 		//buttons
 		
 		passwordField = new JPasswordField();
@@ -177,6 +179,8 @@ public class HybridCryptosystem {
 		    	else {
 		    		
 			    	passwordField.setEditable(false);
+			    	btnNewButton_2.setEnabled(false);
+			    	
 		    		
 		    	}
 		    	
@@ -185,8 +189,9 @@ public class HybridCryptosystem {
 	 
 	 private class EncryptBtnListener implements ActionListener {
 		    public void actionPerformed(ActionEvent e) {
-				textPane.setEnabled(false);
+				textPane.setEditable(false);
 				btnEncrypt.setEnabled(false);
+				btnDecrypt.setEnabled(true);
 				yourPlainText = new String (textPane.getText());
 				
 				//set the plaintext and the key length
@@ -278,6 +283,36 @@ public class HybridCryptosystem {
 				}
 				
 				//myTripleDesDecryption.getTheOriginalElGamalEncryptedText()
+				
+				myElGamalDecryption.setThePrivateKey(yourElGamalPrivateKey);
+				
+				//set the cipher text
+				myElGamalDecryption.setCipherText(myTripleDesDecryption.getTheOriginalElGamalEncryptedText());
+				
+				//get decrypted text
+				try {
+					OriginalText = myElGamalDecryption.decryptThePlainText();
+				} catch (InvalidKeyException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoSuchAlgorithmException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoSuchPaddingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalBlockSizeException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (BadPaddingException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoSuchProviderException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.out.println(OriginalText);
+				
 		    	
 		}
 	 }
