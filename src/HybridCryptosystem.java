@@ -1,29 +1,21 @@
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-
 import javax.crypto.BadPaddingException;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
-import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
-import javax.swing.Action;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.security.InvalidKeyException;
 import java.security.Key;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTextPane;
+import javax.swing.JTextArea;
 
 public class HybridCryptosystem {
 
@@ -35,6 +27,9 @@ public class HybridCryptosystem {
 	JButton btnEncrypt = new JButton("Encrypt");
 	JButton btnDecrypt = new JButton("Decrypt");
 	JTextPane textPane = new JTextPane();
+	JTextArea textArea = new JTextArea();
+	JTextArea textArea_1 = new JTextArea();
+	JLabel lblTheOriginalText = new JLabel("The original text");
 	
 	int yourKeyLength;
 	String yourPlainText;
@@ -56,6 +51,7 @@ public class HybridCryptosystem {
 	// create decryption objects
 	ElGamalDecryption myElGamalDecryption = new ElGamalDecryption();
 	TripleDesDecryption myTripleDesDecryption = new TripleDesDecryption();
+	 
 	
 
 	/**
@@ -89,7 +85,7 @@ public class HybridCryptosystem {
 	private void initialize() {
 		frmHybridCryptosystem = new JFrame();
 		frmHybridCryptosystem.setTitle("Hybrid Cryptosystem");
-		frmHybridCryptosystem.setBounds(100, 100, 758, 575);
+		frmHybridCryptosystem.setBounds(100, 100, 812, 714);
 		frmHybridCryptosystem.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmHybridCryptosystem.getContentPane().setLayout(null);
 		
@@ -101,17 +97,19 @@ public class HybridCryptosystem {
 		btnNewButton_1.setBounds(406, 41, 115, 29);
 		frmHybridCryptosystem.getContentPane().add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new keySizeBtnListener());
+		btnNewButton_2.setEnabled(false);
 		
 		btnNewButton_2.setBounds(429, 121, 69, 29);
 		frmHybridCryptosystem.getContentPane().add(btnNewButton_2);
 		btnNewButton_2.addActionListener(new keySizeEnterBtnListener());
+		btnEncrypt.setEnabled(false);
 		
 		btnEncrypt.setBounds(579, 242, 115, 29);
 		frmHybridCryptosystem.getContentPane().add(btnEncrypt);
 		btnEncrypt.addActionListener(new EncryptBtnListener());
 		
 		btnDecrypt.setEnabled(false);
-		btnDecrypt.setBounds(579, 342, 115, 29);
+		btnDecrypt.setBounds(579, 400, 115, 29);
 		frmHybridCryptosystem.getContentPane().add(btnDecrypt);
 		btnDecrypt.addActionListener(new DecryptBtnListener());
 		//buttons
@@ -131,7 +129,7 @@ public class HybridCryptosystem {
 		frmHybridCryptosystem.getContentPane().add(lblSelectYourKey);
 		
 		
-		textPane.setBounds(184, 198, 363, 113);
+		textPane.setBounds(184, 198, 363, 79);
 		frmHybridCryptosystem.getContentPane().add(textPane);
 		
 		JLabel lblNewLabel = new JLabel("Enter the text to be encrypted");
@@ -139,8 +137,24 @@ public class HybridCryptosystem {
 		frmHybridCryptosystem.getContentPane().add(lblNewLabel);
 		
 		JLabel lblDecryptTheText = new JLabel("Decrypt the text ---------->");
-		lblDecryptTheText.setBounds(266, 346, 210, 20);
+		lblDecryptTheText.setBounds(262, 400, 210, 20);
 		frmHybridCryptosystem.getContentPane().add(lblDecryptTheText);
+		
+		textArea.setEditable(false);
+		textArea.setBounds(184, 310, 363, 79);
+		frmHybridCryptosystem.getContentPane().add(textArea);
+		
+		JLabel lblNewLabel_1 = new JLabel("The resulting ciphertext");
+		lblNewLabel_1.setBounds(280, 287, 180, 20);
+		frmHybridCryptosystem.getContentPane().add(lblNewLabel_1);
+		
+		textArea_1.setEditable(false);
+		textArea_1.setBounds(184, 505, 363, 83);
+		
+		frmHybridCryptosystem.getContentPane().add(textArea_1);
+		lblTheOriginalText.setBounds(299, 469, 132, 20);
+		
+		frmHybridCryptosystem.getContentPane().add(lblTheOriginalText);
 		
 		
 	}
@@ -160,6 +174,7 @@ public class HybridCryptosystem {
 				btnNewButton.setEnabled(false);
 				btnNewButton_1.setEnabled(false);
 				passwordField.setEditable(true);
+				btnNewButton_2.setEnabled(true);
 
 
 		        
@@ -180,6 +195,7 @@ public class HybridCryptosystem {
 		    		
 			    	passwordField.setEditable(false);
 			    	btnNewButton_2.setEnabled(false);
+			    	btnEncrypt.setEnabled(true);
 			    	
 		    		
 		    	}
@@ -249,7 +265,7 @@ public class HybridCryptosystem {
 				
 				yourElGamal3DesEncryptedText = myTripleDesEncryption.getTheEncryptedElGamal3DesEncryptedtxt();
 				
-				
+				textArea.setText(new String(yourElGamal3DesEncryptedText));
 				//print ciphertext new String(yourElGamal3DesEncryptedText)
 
 
@@ -311,10 +327,10 @@ public class HybridCryptosystem {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				System.out.println(OriginalText);
+				
+				textArea_1.setText(OriginalText);
 				
 		    	
 		}
 	 }
-	 
 }
