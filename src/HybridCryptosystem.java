@@ -1,3 +1,9 @@
+/*
+ * Author : David Dorneau
+ * 11/11/2018
+ * CIS_5371
+ * Hybrid Crypto GUI
+ */
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JButton;
