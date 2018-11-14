@@ -1,4 +1,3 @@
-
 /*
  * Authors : David Dorneau & Jammy Jean
  * 10/21/2018
@@ -27,18 +26,21 @@ public class HybridCrypto{
 											NoSuchProviderException 
 	{
 		// TODO Auto-generated method stub
-		Scanner myIn = new Scanner(System.in);
-		
+
 		int yourKeyLength;
 		String yourPlainText;
 		String OriginalText;
 		String yourSecretTripDesKey;
+		
+		Scanner myIn = new Scanner(System.in);
 		// use this to store the cipher text created from the encryption
 		byte [] yourElGamalCipherText;
-		byte [] yourElGamal3DesEncryptedText;
+		byte [] your3DesCipherText;
 		Key yourElGamalPrivateKey;
-		SecretKey yourWrapped3DesSecretKey;
+		SecretKey yourWrapped3DesSecreyKey; 
 		
+		// perform ElGamal Encryption, followed by 3DES encryption, then 
+		// 3DES decryption followed by ElGamal decryption
 		// create encryption objects
 		ElGamalEncryption myElGamalEncryption = new ElGamalEncryption() ;
 		TripleDesEncryption myTripleDesEncryption = new TripleDesEncryption();
@@ -84,43 +86,45 @@ public class HybridCrypto{
 		//accept only a secret key that is 128 bits | 16 characters long
 		do
 		{
-			System.out.println("please enter your secret key (it must be 16 characters long)");
+			System.out.println("\nplease enter your secret key (it must be 16 characters long)");
 			yourSecretTripDesKey = myIn.next();
 			
 		}while(yourSecretTripDesKey.length()!=16);
 		
 	
 		myTripleDesEncryption.setTheSecretKey(yourSecretTripDesKey);
-		yourWrapped3DesSecretKey = myTripleDesEncryption.encryptTheElGamalEncryptedtxt();
-		
-		yourElGamal3DesEncryptedText = myTripleDesEncryption.getTheEncryptedElGamal3DesEncryptedtxt();
-		
+		yourWrapped3DesSecreyKey = myTripleDesEncryption.encryptTheElGamalEncryptedtxt();
+
+		your3DesCipherText = myTripleDesEncryption.theEncryptedElGamalEncryptedtxt;
 		System.out.println("the 3DES and ElGamal ciphertext is " + 
-				new String(yourElGamal3DesEncryptedText));
+				new String(your3DesCipherText));
 		
-		myTripleDesDecryption.setTheSecretKey(yourWrapped3DesSecretKey);
-		myTripleDesDecryption.setTheElGamal3DesEncryptedText(yourElGamal3DesEncryptedText);
-		myTripleDesDecryption.decryptTheElGamal3DesEncryptedText();
-		System.out.println("the El Gamal ciphertext is " + 
-				new String (myTripleDesDecryption.getTheOriginalElGamalEncryptedText()));
+		
+	 	
 		
 		
 		
+		//3DES decryption, set the key, text
+		myTripleDesDecryption.setTheSecretKey(yourWrapped3DesSecreyKey);
+		myTripleDesDecryption.setThe3DslElgamalDecryptedtxt(your3DesCipherText);
+		myTripleDesDecryption.Decrypt3DesKey();
 		
-		// Jammy: to do ElGamal decryption followed by 3DES decryption here
+		//update the plain 3Des CipherText for ElGamal Decryption
+		your3DesCipherText = myTripleDesDecryption.getTheDecrypted3Destxt();
 		
-		
-		
-		//do decryption and output plain text here 
 		// set the the private Key
 		myElGamalDecryption.setThePrivateKey(yourElGamalPrivateKey);
 		
 		//set the cipher text
+<<<<<<< HEAD
 		myElGamalDecryption.setCipherText(myTripleDesDecryption.getTheOriginalElGamalEncryptedText());
+=======
+		myElGamalDecryption.setCipherText(your3DesCipherText);
+>>>>>>> remotes/origin/master
 		
 		//get decrypted text
 		OriginalText = myElGamalDecryption.decryptThePlainText();
-		System.out.println("the Original plain text is:");
+		System.out.println("\nthe Original plain text is:");
 		System.out.println(OriginalText);
 		myIn.close();
 

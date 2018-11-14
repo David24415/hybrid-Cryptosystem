@@ -51,6 +51,7 @@ public class HybridCryptosystem {
 	// create decryption objects
 	ElGamalDecryption myElGamalDecryption = new ElGamalDecryption();
 	TripleDesDecryption myTripleDesDecryption = new TripleDesDecryption();
+	
 	 
 	
 
@@ -112,6 +113,13 @@ public class HybridCryptosystem {
 		btnDecrypt.setBounds(579, 400, 115, 29);
 		frmHybridCryptosystem.getContentPane().add(btnDecrypt);
 		btnDecrypt.addActionListener(new DecryptBtnListener());
+		
+		JButton btnReset = new JButton("RESET");
+		btnReset.setBounds(579, 613, 115, 29);
+		frmHybridCryptosystem.getContentPane().add(btnReset);
+		btnReset.addActionListener(new ResetBtnListener());
+		
+		
 		//buttons
 		
 		passwordField = new JPasswordField();
@@ -157,6 +165,7 @@ public class HybridCryptosystem {
 		frmHybridCryptosystem.getContentPane().add(lblTheOriginalText);
 		
 		
+		
 	}
 
 	
@@ -177,6 +186,14 @@ public class HybridCryptosystem {
 				btnNewButton_2.setEnabled(true);
 
 
+		        
+		    }
+		}
+	 
+	 private class ResetBtnListener implements ActionListener {
+		    public void actionPerformed(ActionEvent e) {
+				
+				main(null);
 		        
 		    }
 		}
