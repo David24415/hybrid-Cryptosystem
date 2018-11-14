@@ -2,7 +2,7 @@ implementation of hybrid cryptosystem using ElGamalPublic-Key, and 3DES Encrypti
 
 you can run this program two ways.
 -----------------------------------------------
-1) run the HybridCrypto windows executable or HybridCrypto jar file and make sure you have java installed first.
+1) run the HybridCrypto windows executable or HybridCrypto jar file (can run on any platform that has java installed) and make sure you have java installed first.
 
 or
 
