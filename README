@@ -6,6 +6,6 @@ you can run this program two ways.
 
 or
 
-2) import the source code, and the bcprovider jar file thats included and create a java project to run the program.
+2) import the source code, and the bcprovider and jgoodies jar files thats included and create a java project to run the program.
 
 -----------------------------------------------
